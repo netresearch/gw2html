@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 namespace gw2html;
 require_once __DIR__ . '/data/config.php';
@@ -12,6 +13,15 @@ spl_autoload_register(
     }
 );
 
+$quiet = array_search('--quiet', $argv) > 0 || array_search('-q', $argv) > 0;
+
+function log($msg)
+{
+    global $quiet;
+    if (!$quiet) {
+        echo $msg;
+    }
+}
 
 $arFieldsToFetch = array(
     'AddressLetter',
@@ -88,12 +98,12 @@ while ($contact = $stmt->fetchObject('gw2html\Contact')) {
     } else {
         $people->add($contact);
     }
-    echo '.';
+    log('.');
 }
 
 $all->finish();
 $companies->finish();
 $people->finish();
 
-echo "done\n";
+log("done\n");
 ?>
