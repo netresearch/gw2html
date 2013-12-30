@@ -1,0 +1,53 @@
+html, body {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+
+table th {
+    vertical-align: top;
+    text-align: left;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0.5em 1em;
+}
+tbody {
+    border-spacing: 0px;
+}
+pre {
+    background-color: #EEE;
+    font-size: 8px;
+}
+
+ul {
+    clear: both;
+}
+.indexes {
+    background-color: #EEE;
+    padding: 1ex;
+    margin-bottom: 2ex;
+    margin-top: 0px;
+}
+.indexes li {
+    display: inline-block;
+    font-size: 80%;
+    list-style-type: none;
+    padding: 0ex 2ex;
+}
+
+table.data {
+    border: none;
+    margin: 0px;
+    border-spacing: 0px;
+}
+table.data th {
+    font-weight: normal;
+}
+table.data th:after {
+    content: ":";
+}
+
+.update {
+    color: #AAA;
+}

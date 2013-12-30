@@ -1,0 +1,9 @@
+{% extends "base.htm" %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+ {% include 'indexes.htm' %}
+<ul>
+  {{entries|raw}}
+</ul>
+{% endblock %}
