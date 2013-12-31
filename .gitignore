@@ -1,3 +1,4 @@
 www/*.htm
 www/*.xml
 /data/config.php
+/README.html
