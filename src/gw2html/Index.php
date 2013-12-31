@@ -28,6 +28,17 @@ class Index
         );
     }
 
+    public function addPlain($filename, $title)
+    {
+        $this->list .= $this->renderer->render(
+            $this->template . '-entry-plain',
+            array(
+                'filename' => $filename,
+                'title' => $title,
+            )
+        );
+    }
+
     public function finish()
     {
         $this->renderer->renderInto(
@@ -35,6 +46,7 @@ class Index
             $this->template,
             array(
                 'title' => $this->title,
+                'filename' => substr($this->filename, 0, -4),
                 'entries' => $this->list
             )
         );

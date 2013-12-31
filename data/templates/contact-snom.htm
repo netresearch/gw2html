@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneDirectory>
+  <Title>{{contact.getName()}}</Title>
+{% if contact.PhoneFieldStr4 %}
+  <DirectoryEntry>
+    <Name>Geschäftlich</Name>
+    <Telephone>{{snomtel(contact.PhoneFieldStr4)}}</Telephone>
+  </DirectoryEntry>
+{% endif %}
+{% if contact.PhoneFieldStr2 %}
+  <DirectoryEntry>
+    <Name>Mobil</Name>
+    <Telephone>{{snomtel(contact.PhoneFieldStr2)}}</Telephone>
+  </DirectoryEntry>
+{% endif %}
+{% if contact.PhoneFieldStr10 %}
+  <DirectoryEntry>
+    <Name>Zentrale</Name>
+    <Telephone>{{snomtel(contact.PhoneFieldStr10)}}</Telephone>
+  </DirectoryEntry>
+{% endif %}
+
+{% if contact.CompName %}
+  <SoftKeyItem>
+    <Name>F1</Name>
+    <Label>Firma</Label>
+    <URL>{{urlprefix}}{{contact.getCompanyFilename()}}.xml</URL>
+  </SoftKeyItem>
+  <SoftKeyItem>
+    <Name>F2</Name>
+    <Label>Mitarbeiter</Label>
+    <URL>{{urlprefix}}{{contact.getCompanyFilename()}}-staff.xml</URL>
+  </SoftKeyItem>
+{% endif %}
+</SnomIPPhoneDirectory>

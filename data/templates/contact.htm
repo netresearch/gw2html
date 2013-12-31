@@ -1,6 +1,20 @@
 {% extends "base.htm" %}
 {% block title %}{{contact.getName()}}{% endblock %}
 
+{% block head %}
+<link rel="alternate" title="Snom XML" type="application/xml" href="{{contact.getFilename()}}.xml"/>
+{% if contact.isCompany() %}
+  <link rel="alternate" title="Snom XML: Staff" type="application/xml" href="{{contact.getFilename()}}-staff.xml"/>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+- <a type="application/xml" href="{{contact.getFilename()}}.xml">Snom XML</a>
+{% if contact.isCompany() %}
+- <a type="application/xml" href="{{contact.getFilename()}}-staff.xml">Snom Staff XML</a>
+{% endif %}
+{% endblock %}
+
 {% block content %}
  {% include 'indexes.htm' %}
 <table class="h-card">

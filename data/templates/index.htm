@@ -1,6 +1,14 @@
 {% extends "base.htm" %}
 {% block title %}{{title}}{% endblock %}
 
+{% block head %}
+<link rel="alternate" title="Snom XML" type="application/xml" href="{{filename}}.xml"/>
+{% endblock %}
+
+{% block footer %}
+- <a type="application/xml" href="{{filename}}.xml">Snom XML</a>
+{% endblock %}
+
 {% block content %}
  {% include 'indexes.htm' %}
 <ul>

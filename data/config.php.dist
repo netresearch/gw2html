@@ -1,0 +1,19 @@
+<?php
+$dbhost = '192.168.1.1';
+$dbuser = 'FIXME';
+$dbpass = 'FIXME';
+$dbname = 'GenesisWorld';
+$urlprefix = 'http://example.org/addresses/FIXME';
+
+//custom indexes. you can skip this. useful for Snom XML
+$indexes = array(
+    array(
+        'title'   => 'Wichtig',
+        'file'    => 'index-wichtig',
+        'entries' => array(
+            'filename-without-extension' => 'Title',
+            'netresearch-gmbh-und-co.-kg' => 'Netresearch GmbH & Co. KG',
+        )
+    )
+);
+?>

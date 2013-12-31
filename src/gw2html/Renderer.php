@@ -4,10 +4,12 @@ namespace gw2html;
 class Renderer
 {
     protected $outdir;
+    protected $variables;
 
-    public function __construct($outdir)
+    public function __construct($outdir, $variables)
     {
         $this->outdir = $outdir;
+        $this->variables = $variables;
 
         \Twig_Autoloader::register();
         $loader = new \Twig_Loader_Filesystem(
@@ -29,11 +31,15 @@ class Renderer
         $this->twig->addFunction(
             'tel', new \Twig_Function_Function(array($this, 'htmlTelephone'))
         );
+        $this->twig->addFunction(
+            'snomtel', new \Twig_Function_Function(array($this, 'snomTelephone'))
+        );
     }
 
     public function render($tplname, $vars = array())
     {
         $template = $this->twig->loadTemplate($tplname . '.htm');
+        $vars = array_merge($this->variables, $vars);
         return $template->render($vars);
     }
 
@@ -67,16 +73,36 @@ class Renderer
             . '</a>' . $append;
     }
 
+    public function cleanTelephone($value)
+    {
+        return str_replace(
+            array(' ', '-', '/'),
+            array('', '', ''),
+            $this->format_telephone_number_rfc3966($value)
+        );
+    }
+
+    public function snomTelephone($value)
+    {
+        //snom does not like 0049 or +49
+        // we also need a 0 to dial out of the office
+        return str_replace(
+            array('+49'),
+            array('00'),
+            $this->format_telephone_number_rfc3966($value)
+        );
+    }
+
     public function htmlTelephone($value)
     {
         if (trim($value) == '') {
             return '';
         }
 
-        $number = str_replace(
-            array('+', ' ', '-', '/'),
-            array('00', '', '', ''),
-            $this->format_telephone_number_rfc3966($value)
+        $number =  str_replace(
+            array('+'),
+            array('00'),
+            $this->cleanTelephone($value)
         );
         return sprintf('
             <a href="tel:%s">%s</a>

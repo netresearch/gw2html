@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SnomIPPhoneMenu>
+  <Title>{{contact.getName()}}</Title>
+{% if contact.hasContacts() %}
+{% for compcontact in contact.contacts %}
+  <MenuItem>
+    <Name>{{compcontact.getSortName(false)}}</Name>
+    <URL>{{urlprefix}}{{compcontact.getFilename()}}.xml</URL>
+  </MenuItem>
+{% endfor %}
+{% endif %}
+
+{% if contact.CompName %}
+  <SoftKeyItem>
+    <Name>F1</Name>
+    <Label>Firma</Label>
+    <URL>{{urlprefix}}{{contact.getCompanyFilename()}}.xml</URL>
+  </SoftKeyItem>
+{% endif %}
+</SnomIPPhoneMenu>

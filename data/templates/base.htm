@@ -5,11 +5,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" href="css/gw2html.css"/>
-  <style type="text/css">
-  </style>
+  {% block head %}{% endblock %}
  </head>
  <body>
   {% block content %}{% endblock%}
-  <p class="update">Exportdatum: {{"now"|date('c')}}</p>
+  <p class="update">Exportdatum: {{"now"|date('c')}} {% block footer %}{% endblock%}</p>
  </body>
 </html>

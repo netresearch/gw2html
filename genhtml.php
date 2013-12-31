@@ -24,7 +24,6 @@ function log($msg)
 }
 
 $arFieldsToFetch = array(
-    'AddressLetter',
     'Birthday',
     'ChristianName',
     'CompName',
@@ -32,12 +31,14 @@ $arFieldsToFetch = array(
     'FaxFieldStr1',
     'FaxFieldStr5',
     'gwImageGUID',
-    'MailFieldStr1',
-    'MailFieldStr5',
+    'MailFieldStr1',//Email geschäftlich
+    'MailFieldStr3',//Email privat
+    'MailFieldStr5',//Email Firma
     'Name',
     'Notes',
-    'PhoneFieldStr2',
-    'PhoneFieldStr4',
+    'PhoneFieldStr2',//Handy
+    'PhoneFieldStr4',//Telefon geschäftlich
+    'PhoneFieldStr7',//Telefon privat
     'PhoneFieldStr10',
     'PhoneId2',
     'PhoneId4',
@@ -68,13 +69,19 @@ $stmt = $pdo->query(
     . ' (Name IS NOT NULL AND Name != \'\')'
     . ' OR (CompName IS NOT NULL AND CompName != \'\')'
     . ' )'
-    //. ' AND CompName = \'Deutsche Telekom AG Leipzig\''
+    //. ' AND CompName = \'Netresearch GmbH & Co. KG\''
     . ' ORDER BY'
     . ' CASE WHEN Name IS NULL OR Name = \'\' THEN LTRIM(CompName) ELSE LTRIM(Name) END'
     . ', LTRIM(ChristianName), LTRIM(CompName)'
 );
 
-$renderer = new Renderer(__DIR__ . '/www/');
+$renderer = new Renderer(
+    __DIR__ . '/www/',
+    array(
+        'urlprefix' => $urlprefix,
+        'indexes' => $indexes
+    )
+);
 
 $all = new Index('index.htm', $renderer);
 
@@ -87,11 +94,28 @@ $people->title = 'Adressbuch: Personen';
 
 while ($contact = $stmt->fetchObject('gw2html\Contact')) {
     $contact->loadContacts($pdo2, $arFieldsToFetch);
+    //html
     $renderer->renderInto(
         $contact->getFilename() . '.htm',
         'contact',
         array('contact' => $contact)
     );
+    //snom xml
+    $renderer->renderInto(
+        $contact->getFilename() . '.xml',
+        'contact-snom',
+        array('contact' => $contact)
+    );
+    //snom company staff
+    if ($contact->isCompany()) {
+        $renderer->renderInto(
+            $contact->getFilename() . '-staff.xml',
+            'company-staff-snom',
+            array('contact' => $contact)
+        );
+    }
+
+    //indexes
     $all->add($contact);
     if ($contact->isCompany()) {
         $companies->add($contact);
@@ -104,6 +128,27 @@ while ($contact = $stmt->fetchObject('gw2html\Contact')) {
 $all->finish();
 $companies->finish();
 $people->finish();
+
+$indexFormats = array(
+    ''      => '.htm',
+    '-snom' => '.xml'
+);
+foreach ($indexes as $indexData) {
+    foreach ($indexFormats as $suffix => $extension) {
+        $index = new Index($indexData['file'] . $extension, $renderer);
+        $index->title = $indexData['title'];
+        $index->template = 'index' . $suffix;
+
+        foreach ($indexData['entries'] as $filename => $title) {
+            if ($suffix == '-snom') {
+                //directly link to company staff in snom xml files
+                $filename .= '-staff';
+            }
+            $index->addPlain($filename, $title);
+        }
+        $index->finish();
+    }
+}
 
 log("done\n");
 ?>

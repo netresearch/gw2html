@@ -49,5 +49,9 @@ table.data th:after {
 }
 
 .update {
+    padding: 0ex 2ex;
+}
+.update,
+.update a {
     color: #AAA;
 }
