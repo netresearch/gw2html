@@ -35,7 +35,7 @@ Setup
   support.
 - Copy ``data/config.php.dist`` to ``data/config.php`` and adjust it
 - Point your web server document root to ``gw2html/www/``
-- Setup a cronjob every night to run ``genhtml.php``
+- Setup a cronjob every night to run ``genhtml.php --quiet``
 
 __ http://twig.sensiolabs.org/
 

@@ -87,8 +87,8 @@ class Renderer
         //snom does not like 0049 or +49
         // we also need a 0 to dial out of the office
         return str_replace(
-            array('+49'),
-            array('00'),
+            array('+49', '0049'),
+            array('00', '00'),
             $this->format_telephone_number_rfc3966($value)
         );
     }

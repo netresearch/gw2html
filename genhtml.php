@@ -92,7 +92,9 @@ $companies->bWithCompany = false;
 $people = new Index('index-people.htm', $renderer);
 $people->title = 'Adressbuch: Personen';
 
+$count = 0;
 while ($contact = $stmt->fetchObject('gw2html\Contact')) {
+    ++$count;
     $contact->loadContacts($pdo2, $arFieldsToFetch);
     //html
     $renderer->renderInto(
@@ -151,4 +153,9 @@ foreach ($indexes as $indexData) {
 }
 
 log("done\n");
+
+if ($count == 0) {
+    echo "Error: No contacts found\n";
+    exit(10);
+}
 ?>
