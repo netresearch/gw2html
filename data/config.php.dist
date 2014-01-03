@@ -5,6 +5,9 @@ $dbpass = 'FIXME';
 $dbname = 'GenesisWorld';
 $urlprefix = 'http://example.org/addresses/FIXME';
 
+//html to add to the top of every page
+$topbar = '';
+
 //custom indexes. you can skip this. useful for Snom XML
 $indexes = array(
     array(

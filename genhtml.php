@@ -79,7 +79,8 @@ $renderer = new Renderer(
     __DIR__ . '/www/',
     array(
         'urlprefix' => $urlprefix,
-        'indexes' => $indexes
+        'indexes' => $indexes,
+        'topbar' => $topbar,
     )
 );
 
