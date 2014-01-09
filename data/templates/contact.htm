@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block footer %}
-- <a type="application/xml" href="{{contact.getFilename()}}.xml">Snom XML</a>
+- <a rel="nofollow" type="application/xml" href="{{contact.getFilename()}}.xml">Snom XML</a>
 {% if contact.isCompany() %}
-- <a type="application/xml" href="{{contact.getFilename()}}-staff.xml">Snom Staff XML</a>
+- <a rel="nofollow" type="application/xml" href="{{contact.getFilename()}}-staff.xml">Snom Staff XML</a>
 {% endif %}
 {% endblock %}
 
