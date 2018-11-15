@@ -37,8 +37,8 @@ class Renderer
             $loader,
             array(
                 //'cache' => '/path/to/compilation_cache',
-                'debug' => true
-            )
+                //'debug' => true,
+            ]
         );
         $this->twig->addFunction(
             new TwigFunction('email',array($this, 'htmlEmail'))
