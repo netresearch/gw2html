@@ -54,10 +54,10 @@ class Index
     {
         $this->list .= $this->renderer->render(
             $this->template . '-entry',
-            array(
-                'contact' => $contact,
-                'bWithCompany' => $this->bWithCompany
-            )
+            [
+                'contact'      => $contact,
+                'bWithCompany' => $this->bWithCompany,
+            ]
         );
     }
 
@@ -72,10 +72,10 @@ class Index
     {
         $this->list .= $this->renderer->render(
             $this->template . '-entry-plain',
-            array(
+            [
                 'filename' => $filename,
-                'title' => $title,
-            )
+                'title'    => $title,
+            ]
         );
     }
 
@@ -89,11 +89,11 @@ class Index
         $this->renderer->renderInto(
             $this->filename,
             $this->template,
-            array(
-                'title' => $this->title,
+            [
+                'title'    => $this->title,
                 'filename' => substr($this->filename, 0, -4),
-                'entries' => $this->list
-            )
+                'entries'  => $this->list,
+            ]
         );
     }
 }

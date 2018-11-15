@@ -10,7 +10,7 @@ class Contact
     /**
      * @var array
      */
-    public $contacts = array();
+    public $contacts = [];
 
     /**
      * @param bool $bWithCompany
@@ -26,6 +26,7 @@ class Contact
         if ($bWithCompany) {
             $name .= ', ' . $this->CompName;
         }
+
         return trim($name, ' ,');
     }
 
@@ -43,6 +44,7 @@ class Contact
         if ($bWithCompany) {
             $name .= ', ' . $this->CompName;
         }
+
         return trim($name, ' ,');
     }
 
@@ -86,8 +88,8 @@ class Contact
     {
         return trim(
             str_replace(
-                array(' ', '/', '"', '\'', '&'),
-                array('-', '-', '', '', 'und'),
+                [' ', '/', '"', '\'', '&'],
+                ['-', '-', '', '', 'und'],
                 strtolower($filename)
             ),
             '- .'
@@ -100,6 +102,7 @@ class Contact
     public function getMapLink()
     {
         $oneline = $this->Street1 . ', ' . $this->Zip1 . ' ' . $this->Town1;
+
         return sprintf(
             '(<a href="%s">Karte</a>)',
             'http://maps.google.de/?q='
@@ -132,7 +135,7 @@ class Contact
             . ' FROM ADDRESS0 WHERE CompName = :company'
             . ' ORDER BY Name, ChristianName'
         );
-        $stmt->execute(array(':company' => $this->CompName));
+        $stmt->execute([':company' => $this->CompName]);
         while ($contact = $stmt->fetchObject('gw2html\Contact')) {
             if (!$contact->isCompany()) {
                 $this->contacts[] = $contact;

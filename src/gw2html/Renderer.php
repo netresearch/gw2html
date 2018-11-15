@@ -35,22 +35,22 @@ class Renderer
 
         $this->twig = new Environment(
             $loader,
-            array(
+            [
                 //'cache' => '/path/to/compilation_cache',
                 //'debug' => true,
             ]
         );
         $this->twig->addFunction(
-            new TwigFunction('email',array($this, 'htmlEmail'))
+            new TwigFunction('email', [$this, 'htmlEmail'])
         );
         $this->twig->addFunction(
-            new TwigFunction('link', array($this, 'htmlLink'))
+            new TwigFunction('link', [$this, 'htmlLink'])
         );
         $this->twig->addFunction(
-            new TwigFunction('tel', array($this, 'htmlTelephone'))
+            new TwigFunction('tel', [$this, 'htmlTelephone'])
         );
         $this->twig->addFunction(
-            new TwigFunction('snomtel', array($this, 'snomTelephone'))
+            new TwigFunction('snomtel', [$this, 'snomTelephone'])
         );
     }
 
@@ -62,7 +62,7 @@ class Renderer
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
      */
-    public function render($tplname, $vars = array())
+    public function render($tplname, $vars = [])
     {
         $template = $this->twig->resolveTemplate($tplname . '.twig');
         $vars = array_merge($this->variables, $vars);
@@ -77,7 +77,7 @@ class Renderer
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Syntax
      */
-    public function renderInto($filename, $tplname, $vars = array())
+    public function renderInto($filename, $tplname, $vars = [])
     {
         file_put_contents(
             $this->outdir . '/' . $filename,
@@ -124,8 +124,8 @@ class Renderer
     public function cleanTelephone($value)
     {
         return str_replace(
-            array(' ', '-', '/'),
-            array('', '', ''),
+            [' ', '-', '/'],
+            ['', '', ''],
             $this->format_telephone_number_rfc3966($value)
         );
     }
@@ -139,8 +139,8 @@ class Renderer
         //snom does not like 0049 or +49
         // we also need a 0 to dial out of the office
         return str_replace(
-            array('+49', '0049'),
-            array('00', '00'),
+            ['+49', '0049'],
+            ['00', '00'],
             $this->format_telephone_number_rfc3966($value)
         );
     }
@@ -156,8 +156,8 @@ class Renderer
         }
 
         $number =  str_replace(
-            array('+'),
-            array('00'),
+            ['+'],
+            ['00'],
             $this->cleanTelephone($value)
         );
         return sprintf('
