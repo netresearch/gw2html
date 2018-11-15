@@ -2,11 +2,11 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block head %}
-<link rel="alternate" title="Snom XML" type="application/xml" href="{{filename}}.xml"/>
+<link rel="alternate" title="Snom XML" type="application/xml" href="{{ filename|url_encode }}.xml">
 {% endblock %}
 
 {% block footer %}
-- <a rel="nofollow" type="application/xml" href="{{filename}}.xml">Snom XML</a>
+- <a rel="nofollow" type="application/xml" href="{{ filename|url_encode }}.xml">Snom XML</a>
 {% endblock %}
 
 {% block content %}

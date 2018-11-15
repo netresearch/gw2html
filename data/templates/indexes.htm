@@ -3,6 +3,6 @@
  <li><a href="index-companies.htm">Firmen</a></li>
  <li><a href="index-people.htm">Personen</a></li>
 {% for index in indexes %}
- <li><a href="{{index.file}}.htm">{{index.title}}</a></li>
+ <li><a href="{{ index.file|url_encode }}.htm">{{ index.title }}</a></li>
 {% endfor %}
 </ul>

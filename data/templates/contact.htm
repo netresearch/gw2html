@@ -1,17 +1,17 @@
 {% extends "base.htm" %}
-{% block title %}{{contact.getName()}}{% endblock %}
+{% block title %}{{ contact.getName() }}{% endblock %}
 
 {% block head %}
-<link rel="alternate" title="Snom XML" type="application/xml" href="{{contact.getFilename()}}.xml"/>
+<link rel="alternate" title="Snom XML" type="application/xml" href="{{ contact.getFilename()|url_encode }}.xml">
 {% if contact.isCompany() %}
-  <link rel="alternate" title="Snom XML: Staff" type="application/xml" href="{{contact.getFilename()}}-staff.xml"/>
+  <link rel="alternate" title="Snom XML: Staff" type="application/xml" href="{{ contact.getFilename()|url_encode }}-staff.xml">
 {% endif %}
 {% endblock %}
 
 {% block footer %}
-- <a rel="nofollow" type="application/xml" href="{{contact.getFilename()}}.xml">Snom XML</a>
+- <a rel="nofollow" type="application/xml" href="{{ contact.getFilename()|url_encode }}.xml">Snom XML</a>
 {% if contact.isCompany() %}
-- <a rel="nofollow" type="application/xml" href="{{contact.getFilename()}}-staff.xml">Snom Staff XML</a>
+- <a rel="nofollow" type="application/xml" href="{{ contact.getFilename()|url_encode }}-staff.xml">Snom Staff XML</a>
 {% endif %}
 {% endblock %}
 
@@ -22,24 +22,24 @@
     {% if not contact.isCompany() %}
     <tr>
       <th>Name</th>
-      <td><span class="p-name">{{contact.ChristianName}} {{contact.Name}}</span></td>
+      <td><span class="p-name">{{ contact.ChristianName }} {{ contact.Name }}</span></td>
     </tr>
     {% endif %}
     <tr>
       <th>Adresse</th>
       <td class="p-adr h-adr">
-        {%if contact.CompName %}<a href="{{contact.getCompanyFilename()}}.htm" class="p-org">{{contact.CompName}}</a><br/>{% endif %}
-        {%if contact.Department %}{{contact.Department}}<br/>{% endif %}
-        <span class="p-street-address">{{contact.Street1}}</span><br/>
-        <span class="p-postal-code">{{contact.Zip1}}</span> <span class="p-locality">{{contact.Town1}}</span>
-        {% if contact.Town1 %}{{contact.getMapLink|raw}}{% endif %}
+        {% if contact.CompName %}<a href="{{ contact.getCompanyFilename() }}.htm" class="p-org">{{ contact.CompName }}</a><br>{% endif %}
+        {% if contact.Department %}{{ contact.Department }}<br>{% endif %}
+        <span class="p-street-address">{{ contact.Street1 }}</span><br>
+        <span class="p-postal-code">{{ contact.Zip1 }}</span> <span class="p-locality">{{ contact.Town1 }}</span>
+        {% if contact.Town1 %}{{ contact.getMapLink|raw }}{% endif %}
       </td>
     </tr>
     <tr>
       <th>E-Mail</th>
       <td>
-        <span class="p-email">{{email(contact.MailFieldStr1, "<br/>")|raw}}</span>
-        {{email(contact.MailFieldStr5, "<br/>")|raw}}
+        <span class="p-email">{{ email(contact.MailFieldStr1, "<br>")|raw }}</span>
+        {{ email(contact.MailFieldStr5, "<br>")|raw }}
       </td>
     </tr>
     {% if contact.PhoneFieldStr2 or contact.PhoneFieldStr4 or contact.PhoneFieldStr10 %}
@@ -50,19 +50,19 @@
           {% if contact.PhoneFieldStr4 %}
           <tr class="p-tel">
             <th class="type"><span class="value-title" title="work"></span>Geschäftlich</th>
-            <td class="value">{{tel(contact.PhoneFieldStr4)|raw}}</td>
+            <td class="value">{{ tel(contact.PhoneFieldStr4)|raw }}</td>
           </tr>
           {% endif %}
           {% if contact.PhoneFieldStr2 %}
           <tr class="p-tel">
             <th class="type"><span class="value-title" title="cell"></span>Mobil</th>
-            <td class="value">{{tel(contact.PhoneFieldStr2)|raw}}</td>
+            <td class="value">{{ tel(contact.PhoneFieldStr2)|raw }}</td>
           </tr>
           {% endif %}
           {% if contact.PhoneFieldStr10 %}
           <tr class="p-tel">
             <th class="type"><span class="value-title" title="switchboard"></span>Zentrale</th>
-            <td class="value">{{tel(contact.PhoneFieldStr10)|raw}}</td>
+            <td class="value">{{ tel(contact.PhoneFieldStr10)|raw }}</td>
           </tr>
           {% endif %}
         </table>
@@ -77,13 +77,13 @@
           {% if contact.FaxFieldStr1 %}
           <tr class="p-tel">
             <th class="type"><span class="value-title" title="fax,work"></span>Geschäftlich</th>
-            <td class="value">{{tel(contact.FaxFieldStr1)|raw}}</td>
+            <td class="value">{{ tel(contact.FaxFieldStr1)|raw }}</td>
           </tr>
           {% endif %}
           {% if contact.FaxFieldStr5 %}
           <tr class="p-tel">
             <th class="type"><span class="value-title" title="fax,switchboard"></span>Zentrale</th>
-            <td class="value">{{tel(contact.FaxFieldStr5)|raw}}</td>
+            <td class="value">{{ tel(contact.FaxFieldStr5)|raw }}</td>
           </tr>
           {% endif %}
         </table>
@@ -94,7 +94,7 @@
     <tr>
       <th>Homepage</th>
       <td class="u-url">
-        {{link(contact.WWWFieldStr1)|raw}}
+        {{ link(contact.WWWFieldStr1)|raw }}
       </td>
     </tr>
     {% endif %}
@@ -102,8 +102,8 @@
     <tr>
       <th>Geburtsdatum</th>
       <td class="dt-bday">
-        <span class="value-title" title="{{contact.Birthday|date('Y-m-d')}}">
-          {{contact.Birthday|date('d.m.Y')}}
+        <span class="value-title" title="{{ contact.Birthday|date('Y-m-d') }}">
+          {{ contact.Birthday|date('d.m.Y') }}
         </span>
       </td>
     </tr>
@@ -112,7 +112,7 @@
     <tr>
       <th>Schlagworte</th>
       <td>
-        {{contact.Notes}}
+        {{ contact.Notes }}
       </td>
     </tr>
     {% endif %}
@@ -121,7 +121,7 @@
       <th>Mitarbeiter</th>
       <td>
         {% for compcontact in contact.contacts %}
-          <a href="{{compcontact.getFilename()}}.htm">{{compcontact.getSortName(false)}}</a><br/>
+          <a href="{{ compcontact.getFilename() }}.htm">{{ compcontact.getSortName(false) }}</a><br>
         {% endfor %}
       </td>
     </tr>

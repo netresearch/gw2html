@@ -1,15 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="css/gw2html.css"/>
-  {% block head %}{% endblock %}
- </head>
- <body>
-  {{topbar|raw}}
-  {% block content %}{% endblock%}
-  <p class="update">Exportdatum: {{"now"|date('c')}} {% block footer %}{% endblock%}</p>
- </body>
+<!doctype html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="x-ua-compatible" content="ie=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ <title>{% block title %}{% endblock %}</title>
+
+ <link rel="stylesheet" href="css/gw2html.css">
+ {% block head %}{% endblock %}
+</head>
+
+<body>
+
+{{ topbar|raw }}
+{% block content %}{% endblock %}
+<p class="update">Exportdatum: {{ "now"|date('c') }} {% block footer %}{% endblock %}</p>
+
+</body>
+
 </html>
+
