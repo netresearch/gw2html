@@ -105,7 +105,7 @@ class Contact
 
         return sprintf(
             '(<a href="%s">Karte</a>)',
-            'http://maps.google.de/?q='
+            'https://maps.google.com/?q='
             . urlencode($oneline)
         );
     }
