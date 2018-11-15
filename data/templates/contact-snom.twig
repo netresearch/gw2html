@@ -3,19 +3,19 @@
   <Title>{{contact.getName()}}</Title>
 {% if contact.PhoneFieldStr4 %}
   <DirectoryEntry>
-    <Name>Geschäftlich</Name>
+    <Name>Business</Name>
     <Telephone>{{snomtel(contact.PhoneFieldStr4)}}</Telephone>
   </DirectoryEntry>
 {% endif %}
 {% if contact.PhoneFieldStr2 %}
   <DirectoryEntry>
-    <Name>Mobil</Name>
+    <Name>Mobile</Name>
     <Telephone>{{snomtel(contact.PhoneFieldStr2)}}</Telephone>
   </DirectoryEntry>
 {% endif %}
 {% if contact.PhoneFieldStr10 %}
   <DirectoryEntry>
-    <Name>Zentrale</Name>
+    <Name>Reception</Name>
     <Telephone>{{snomtel(contact.PhoneFieldStr10)}}</Telephone>
   </DirectoryEntry>
 {% endif %}
@@ -23,12 +23,12 @@
 {% if contact.CompName %}
   <SoftKeyItem>
     <Name>F1</Name>
-    <Label>Firma</Label>
+    <Label>Company</Label>
     <URL>{{urlprefix}}{{contact.getCompanyFilename()}}.xml</URL>
   </SoftKeyItem>
   <SoftKeyItem>
     <Name>F2</Name>
-    <Label>Mitarbeiter</Label>
+    <Label>Employees</Label>
     <URL>{{urlprefix}}{{contact.getCompanyFilename()}}-staff.xml</URL>
   </SoftKeyItem>
 {% endif %}

@@ -73,11 +73,11 @@ $renderer = new Renderer(
 $all = new Index('index.htm', $renderer);
 
 $companies = new Index('index-companies.htm', $renderer);
-$companies->title = 'Adressbuch: Firmen';
+$companies->title = 'Addresses: Companies';
 $companies->bWithCompany = false;
 
 $people = new Index('index-people.htm', $renderer);
-$people->title = 'Adressbuch: Personen';
+$people->title = 'Addresses: Contacts';
 
 $count = 0;
 while ($contact = $stmt->fetchObject('gw2html\Contact')) {

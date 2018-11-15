@@ -1,7 +1,7 @@
 <ul class="indexes">
- <li><a href="index.htm">Alle</a></li>
- <li><a href="index-companies.htm">Firmen</a></li>
- <li><a href="index-people.htm">Personen</a></li>
+ <li><a href="index.htm">All</a></li>
+ <li><a href="index-companies.htm">Companies</a></li>
+ <li><a href="index-people.htm">Contacts</a></li>
 {% for index in indexes %}
  <li><a href="{{ index.file|url_encode }}.htm">{{ index.title }}</a></li>
 {% endfor %}

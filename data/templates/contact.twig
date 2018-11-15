@@ -26,7 +26,7 @@
     </tr>
     {% endif %}
     <tr>
-      <th>Adresse</th>
+      <th>Address</th>
       <td class="p-adr h-adr">
         {% if contact.CompName %}<a href="{{ contact.getCompanyFilename() }}.htm" class="p-org">{{ contact.CompName }}</a><br>{% endif %}
         {% if contact.Department %}{{ contact.Department }}<br>{% endif %}
@@ -44,24 +44,24 @@
     </tr>
     {% if contact.PhoneFieldStr2 or contact.PhoneFieldStr4 or contact.PhoneFieldStr10 %}
     <tr>
-      <th>Telefon</th>
+      <th>Phone</th>
       <td>
         <table class="data">
           {% if contact.PhoneFieldStr4 %}
           <tr class="p-tel">
-            <th class="type"><span class="value-title" title="work"></span>Geschäftlich</th>
+            <th class="type"><span class="value-title" title="work"></span>Business</th>
             <td class="value">{{ tel(contact.PhoneFieldStr4)|raw }}</td>
           </tr>
           {% endif %}
           {% if contact.PhoneFieldStr2 %}
           <tr class="p-tel">
-            <th class="type"><span class="value-title" title="cell"></span>Mobil</th>
+            <th class="type"><span class="value-title" title="cell"></span>Mobile</th>
             <td class="value">{{ tel(contact.PhoneFieldStr2)|raw }}</td>
           </tr>
           {% endif %}
           {% if contact.PhoneFieldStr10 %}
           <tr class="p-tel">
-            <th class="type"><span class="value-title" title="switchboard"></span>Zentrale</th>
+            <th class="type"><span class="value-title" title="switchboard"></span>Reception</th>
             <td class="value">{{ tel(contact.PhoneFieldStr10)|raw }}</td>
           </tr>
           {% endif %}
@@ -76,13 +76,13 @@
         <table class="data">
           {% if contact.FaxFieldStr1 %}
           <tr class="p-tel">
-            <th class="type"><span class="value-title" title="fax,work"></span>Geschäftlich</th>
+            <th class="type"><span class="value-title" title="fax,work"></span>Business</th>
             <td class="value">{{ tel(contact.FaxFieldStr1)|raw }}</td>
           </tr>
           {% endif %}
           {% if contact.FaxFieldStr5 %}
           <tr class="p-tel">
-            <th class="type"><span class="value-title" title="fax,switchboard"></span>Zentrale</th>
+            <th class="type"><span class="value-title" title="fax,switchboard"></span>Reception</th>
             <td class="value">{{ tel(contact.FaxFieldStr5)|raw }}</td>
           </tr>
           {% endif %}
@@ -100,7 +100,7 @@
     {% endif %}
     {% if contact.Birthday %}
     <tr>
-      <th>Geburtsdatum</th>
+      <th>Birthday</th>
       <td class="dt-bday">
         <span class="value-title" title="{{ contact.Birthday|date('Y-m-d') }}">
           {{ contact.Birthday|date('d.m.Y') }}
@@ -110,7 +110,7 @@
     {% endif %}
     {% if contact.Notes %}
     <tr>
-      <th>Schlagworte</th>
+      <th>Keywords</th>
       <td>
         {{ contact.Notes }}
       </td>
@@ -118,7 +118,7 @@
     {% endif %}
     {% if contact.isCompany() and contact.hasContacts() %}
     <tr>
-      <th>Mitarbeiter</th>
+      <th>Employees</th>
       <td>
         {% for compcontact in contact.contacts %}
           <a href="{{ compcontact.getFilename() }}.htm">{{ compcontact.getSortName(false) }}</a><br>
