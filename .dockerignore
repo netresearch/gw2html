@@ -1,0 +1,6 @@
+www/*.htm
+!www/index.htm
+www/*.xml
+data/config.php
+README.html
+vendor/

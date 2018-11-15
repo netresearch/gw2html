@@ -1,21 +1,39 @@
 <?php
 namespace gw2html;
 
+use Twig\Environment;
+use Twig\TwigFunction;
+
+/**
+ * Class Renderer
+ * @package gw2html
+ */
 class Renderer
 {
+    /**
+     * @var
+     */
     protected $outdir;
+    /**
+     * @var
+     */
     protected $variables;
 
+    /**
+     * Renderer constructor.
+     * @param $outdir
+     * @param $variables
+     */
     public function __construct($outdir, $variables)
     {
         $this->outdir = $outdir;
         $this->variables = $variables;
 
-        \Twig_Autoloader::register();
         $loader = new \Twig_Loader_Filesystem(
             __DIR__ . '/../../data/templates/'
         );
-        $this->twig = new \Twig_Environment(
+
+        $this->twig = new Environment(
             $loader,
             array(
                 //'cache' => '/path/to/compilation_cache',
@@ -23,26 +41,42 @@ class Renderer
             )
         );
         $this->twig->addFunction(
-            'email', new \Twig_Function_Function(array($this, 'htmlEmail'))
+            new TwigFunction('email',array($this, 'htmlEmail'))
         );
         $this->twig->addFunction(
-            'link', new \Twig_Function_Function(array($this, 'htmlLink'))
+            new TwigFunction('link', array($this, 'htmlLink'))
         );
         $this->twig->addFunction(
-            'tel', new \Twig_Function_Function(array($this, 'htmlTelephone'))
+            new TwigFunction('tel', array($this, 'htmlTelephone'))
         );
         $this->twig->addFunction(
-            'snomtel', new \Twig_Function_Function(array($this, 'snomTelephone'))
+            new TwigFunction('snomtel', array($this, 'snomTelephone'))
         );
     }
 
+    /**
+     * @param $tplname
+     * @param array $vars
+     * @return false|string
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
+     */
     public function render($tplname, $vars = array())
     {
-        $template = $this->twig->loadTemplate($tplname . '.htm');
+        $template = $this->twig->resolveTemplate($tplname . '.htm');
         $vars = array_merge($this->variables, $vars);
         return $template->render($vars);
     }
 
+    /**
+     * @param $filename
+     * @param $tplname
+     * @param array $vars
+     * @throws \Throwable
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Syntax
+     */
     public function renderInto($filename, $tplname, $vars = array())
     {
         file_put_contents(
@@ -51,6 +85,11 @@ class Renderer
         );
     }
 
+    /**
+     * @param $email
+     * @param string $append
+     * @return string
+     */
     public function htmlEmail($email, $append = '')
     {
         if (trim($email) == '') {
@@ -62,6 +101,11 @@ class Renderer
             . '</a>' . $append;
     }
 
+    /**
+     * @param $url
+     * @param string $append
+     * @return string
+     */
     public function htmlLink($url, $append = '')
     {
         if (trim($url) == '') {
@@ -73,6 +117,10 @@ class Renderer
             . '</a>' . $append;
     }
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     public function cleanTelephone($value)
     {
         return str_replace(
@@ -82,6 +130,10 @@ class Renderer
         );
     }
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     public function snomTelephone($value)
     {
         //snom does not like 0049 or +49
@@ -93,6 +145,10 @@ class Renderer
         );
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     public function htmlTelephone($value)
     {
         if (trim($value) == '') {
@@ -149,4 +205,3 @@ class Renderer
         return $tel;
     }
 }
-?>

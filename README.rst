@@ -2,8 +2,7 @@
 Genesis World address book HTML export
 **************************************
 
-Export all contacts from a CAS__ `Genesis World`__ CRM database
-into static HTML files.
+Export all contacts from a CAS__ `Genesis World`__ CRM database into static HTML files.
 
 The Genesis World LDAP bridge does not export data like mobile phone
 numbers and cities, so this tool directly accesses the SQL server
@@ -25,20 +24,14 @@ Features
 =====
 Setup
 =====
-- Twig__ template engine::
+- Dependencies::
 
-    $ pear channel-discover pear.twig-project.org
-    $ pear install twig/Twig
+    $ composer install
 
 - PHP extension ``dblib`` required (Debian package ``php5_sybase``)
-- Set ``tds version = 7.0`` in ``/etc/freetds/freetds.conf`` to enable UTF-8
-  support.
 - Copy ``data/config.php.dist`` to ``data/config.php`` and adjust it
 - Point your web server document root to ``gw2html/www/``
 - Setup a cronjob every night to run ``genhtml.php --quiet``
-
-__ http://twig.sensiolabs.org/
-
 
 
 Snom IP phone usage

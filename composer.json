@@ -1,0 +1,26 @@
+{
+    "name": "netresearch/gw2html",
+    "description": "Export all contacts from a CAS__ `Genesis World`__ CRM database into static HTML files.",
+    "type": "project",
+    "config": {
+        "platform": {
+            "php": "7.2"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": { "": "src/" }
+    },
+    "require": {
+        "ext-pcre": "*",
+        "ext-pdo_dblib": "*",
+        "twig/twig": "^2.5"
+    },
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Sebastian Mendel",
+            "email": "sebastian.mendel@netresearch.de"
+        }
+    ]
+}

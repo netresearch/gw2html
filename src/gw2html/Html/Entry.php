@@ -7,4 +7,3 @@ class Html_Entry
     {
     }
 }
-?>

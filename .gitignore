@@ -1,4 +1,6 @@
-www/*.htm
-www/*.xml
+/www/*.htm
+/www/*.xml
 /data/config.php
 /README.html
+/vendor/
+/docker-compose.override.yml

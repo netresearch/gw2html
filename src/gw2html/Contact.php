@@ -1,10 +1,21 @@
 <?php
 namespace gw2html;
 
+/**
+ * Class Contact
+ * @package gw2html
+ */
 class Contact
 {
+    /**
+     * @var array
+     */
     public $contacts = array();
 
+    /**
+     * @param bool $bWithCompany
+     * @return string
+     */
     public function getName($bWithCompany = true)
     {
         if ($this->isCompany()) {
@@ -18,6 +29,10 @@ class Contact
         return trim($name, ' ,');
     }
 
+    /**
+     * @param bool $bWithCompany
+     * @return string
+     */
     public function getSortName($bWithCompany = true)
     {
         if ($this->isCompany()) {
@@ -31,11 +46,17 @@ class Contact
         return trim($name, ' ,');
     }
 
+    /**
+     * @return bool
+     */
     public function isCompany()
     {
         return $this->Name == '' && $this->CompName != '';
     }
 
+    /**
+     * @return string
+     */
     public function getFilename()
     {
         if ($this->isCompany()) {
@@ -49,11 +70,18 @@ class Contact
         return $this->sanitizeFilename($name);
     }
 
+    /**
+     * @return string
+     */
     public function getCompanyFilename()
     {
         return $this->sanitizeFilename($this->CompName);
     }
 
+    /**
+     * @param $filename
+     * @return string
+     */
     protected function sanitizeFilename($filename)
     {
         return trim(
@@ -66,6 +94,9 @@ class Contact
         );
     }
 
+    /**
+     * @return string
+     */
     public function getMapLink()
     {
         $oneline = $this->Street1 . ', ' . $this->Zip1 . ' ' . $this->Town1;
@@ -77,11 +108,19 @@ class Contact
     }
 
 
+    /**
+     * @return bool
+     */
     public function hasContacts()
     {
         return count($this->contacts) > 0;
     }
 
+    /**
+     * @param $pdo
+     * @param $arFieldsToFetch
+     * @return bool
+     */
     public function loadContacts($pdo, $arFieldsToFetch)
     {
         if (!$this->isCompany()) {
@@ -101,4 +140,3 @@ class Contact
         }
     }
 }
-?>

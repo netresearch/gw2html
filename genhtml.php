@@ -1,17 +1,9 @@
 #!/usr/bin/env php
 <?php
 namespace gw2html;
-require_once __DIR__ . '/data/config.php';
-set_include_path(__DIR__ . '/src/' . PATH_SEPARATOR . get_include_path());
 
-spl_autoload_register(
-    function ($class) {
-        $file = str_replace(array('\\', '_'), '/', $class) . '.php';
-        if (stream_resolve_include_path($file) !== false) {
-            require $file;
-        }
-    }
-);
+require_once __DIR__ . '/data/config.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $quiet = array_search('--quiet', $argv) > 0 || array_search('-q', $argv) > 0;
 
@@ -23,7 +15,7 @@ function log($msg)
     }
 }
 
-$arFieldsToFetch = array(
+$arFieldsToFetch = [
     'Birthday',
     'ChristianName',
     'CompName',
@@ -47,20 +39,14 @@ $arFieldsToFetch = array(
     'Town1',
     'WWWFieldStr1',
     'Zip1',
-);
+];
 
+$dsn = 'dblib:version=7.0;charset=UTF-8;host=' . $dbhost . ';dbname=' . $dbname . ';';
+$options= [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION];
 
-$pdo = new \PDO(
-    'dblib:host=' . $dbhost . ';dbname=' . $dbname,
-    $dbuser, $dbpass,
-    array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
-);
+$pdo = new \PDO($dsn, $dbuser, $dbpass, $options);
 //work around PHP bug https://bugs.php.net/bug.php?id=65945
-$pdo2 = new \PDO(
-    'dblib:host=' . $dbhost . ';dbname=' . $dbname,
-    $dbuser, $dbpass,
-    array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
-);
+$pdo2 = new \PDO($dsn, $dbuser, $dbpass, $options);
 
 $stmt = $pdo->query(
     'SELECT ' . implode(',', $arFieldsToFetch)
@@ -77,11 +63,11 @@ $stmt = $pdo->query(
 
 $renderer = new Renderer(
     __DIR__ . '/www/',
-    array(
+    [
         'urlprefix' => $urlprefix,
-        'indexes' => $indexes,
-        'topbar' => $topbar,
-    )
+        'indexes'   => $indexes,
+        'topbar'    => $topbar,
+    ]
 );
 
 $all = new Index('index.htm', $renderer);
@@ -132,10 +118,10 @@ $all->finish();
 $companies->finish();
 $people->finish();
 
-$indexFormats = array(
+$indexFormats = [
     ''      => '.htm',
-    '-snom' => '.xml'
-);
+    '-snom' => '.xml',
+];
 foreach ($indexes as $indexData) {
     foreach ($indexFormats as $suffix => $extension) {
         $index = new Index($indexData['file'] . $extension, $renderer);
@@ -159,4 +145,3 @@ if ($count == 0) {
     echo "Error: No contacts found\n";
     exit(10);
 }
-?>

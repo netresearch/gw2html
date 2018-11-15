@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+
+  app:
+    build: .
+    image: registry.netresearch.de/netresearch-administration/gw2html
+    volumes:
+    - app-data:/var/www/www
+    - ./data/config.php:/var/www/data/config.php
+    restart: always
+
+volumes:
+
+  app-data:
+    driver: local
