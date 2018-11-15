@@ -1,4 +1,4 @@
-{% extends "base.htm" %}
+{% extends "base.twig" %}
 {% block title %}{{title}}{% endblock %}
 
 {% block head %}
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
- {% include 'indexes.htm' %}
+ {% include 'indexes.twig' %}
 <ul>
   {{entries|raw}}
 </ul>

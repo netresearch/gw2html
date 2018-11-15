@@ -1,4 +1,4 @@
-{% extends "base.htm" %}
+{% extends "base.twig" %}
 {% block title %}{{ contact.getName() }}{% endblock %}
 
 {% block head %}
@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
- {% include 'indexes.htm' %}
+ {% include 'indexes.twig' %}
 <table class="h-card">
   <tbody>
     {% if not contact.isCompany() %}

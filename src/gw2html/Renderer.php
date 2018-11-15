@@ -64,7 +64,7 @@ class Renderer
      */
     public function render($tplname, $vars = array())
     {
-        $template = $this->twig->resolveTemplate($tplname . '.htm');
+        $template = $this->twig->resolveTemplate($tplname . '.twig');
         $vars = array_merge($this->variables, $vars);
         return $template->render($vars);
     }
