@@ -1,4 +1,4 @@
-FROM php:7
+FROM php:8
 
 RUN set -ex \
  && apt-get update -y \
