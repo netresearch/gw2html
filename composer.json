@@ -14,7 +14,7 @@
     "require": {
         "ext-pcre": "*",
         "ext-pdo_dblib": "*",
-        "twig/twig": "^2.5"
+        "twig/twig": "^3.0"
     },
     "license": "AGPL",
     "authors": [
