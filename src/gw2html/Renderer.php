@@ -29,7 +29,7 @@ class Renderer
         $this->outdir = $outdir;
         $this->variables = $variables;
 
-        $loader = new \Twig_Loader_Filesystem(
+        $loader = new \Twig\Loader\FilesystemLoader(
             __DIR__ . '/../../data/templates/'
         );
 
