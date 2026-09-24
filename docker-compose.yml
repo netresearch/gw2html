@@ -4,6 +4,15 @@ services:
   app:
     build: .
     image: registry.netresearch.de/netresearch-administration/gw2html
+    security_opt:
+      - no-new-privileges:true
+    # nginx (Debian package) writes only its pid file and temp paths
+    # (nginx -V: /run/nginx.pid, /var/lib/nginx/*); logs are symlinked
+    # to stdout/stderr and the HTML output goes to the app-data volume.
+    read_only: true
+    tmpfs:
+      - /run
+      - /var/lib/nginx
     volumes:
     - app-data:/var/www/www
     - ./data/config.php:/var/www/data/config.php
