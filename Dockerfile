@@ -52,4 +52,7 @@ EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
+# The nginx master starts as root and runs its workers as www-data (the
+# `user www-data;` directive of the Debian package's nginx.conf).
+# nosemgrep: dockerfile.security.missing-user.missing-user
 CMD ["nginx", "-g", "daemon off;"]
