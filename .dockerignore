@@ -4,3 +4,6 @@ www/*.xml
 data/config.php
 README.html
 vendor/
+# html is a symlink to www in git; COPY cannot replace the base image's
+# /var/www/html directory with it. The Dockerfile recreates the link.
+html
